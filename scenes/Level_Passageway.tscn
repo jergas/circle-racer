@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://actors/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/Goal.gd" id="2_goalscript"]
+[ext_resource type="Texture2D" path="res://assets/star.svg" id="3_star"]
+[ext_resource type="Texture2D" path="res://assets/square.svg" id="4_square"]
+[ext_resource type="Texture2D" path="res://assets/triangle.svg" id="5_triangle"]
+
+[sub_resource type="RectangleShape2D" id="RectShape_Wall"]
+size = Vector2(1152, 20)
+
+[sub_resource type="RectangleShape2D" id="RectShape_Square"]
+size = Vector2(60, 60)
+
+[sub_resource type="CircleShape2D" id="CircleShape_Goal"]
+radius = 30.0
+
+[node name="Level_Passageway" type="Node2D"]
+
+; Top Wall
+[node name="WallTop" type="StaticBody2D" parent="."]
+position = Vector2(576, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop"]
+shape = SubResource("RectShape_Wall")
+
+; Bottom Wall
+[node name="WallBottom" type="StaticBody2D" parent="."]
+position = Vector2(576, 638)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom"]
+shape = SubResource("RectShape_Wall")
+
+; Obstacle 1 (Square)
+[node name="ObstacleSquare" type="StaticBody2D" parent="."]
+position = Vector2(400, 600)
+
+[node name="Sprite2D" type="Sprite2D" parent="ObstacleSquare"]
+texture = ExtResource("4_square")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleSquare"]
+shape = SubResource("RectShape_Square")
+
+; Obstacle 2 (Triangle)
+[node name="ObstacleTriangle" type="StaticBody2D" parent="."]
+position = Vector2(700, 50)
+rotation = 3.14159
+
+[node name="Sprite2D" type="Sprite2D" parent="ObstacleTriangle"]
+texture = ExtResource("5_triangle")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ObstacleTriangle"]
+polygon = PackedVector2Array(0, -30, 30, 30, -30, 30)
+
+; Goal
+[node name="Goal" type="Area2D" parent="."]
+position = Vector2(1050, 324)
+script = ExtResource("2_goalscript")
+
+[node name="Sprite2D" type="Sprite2D" parent="Goal"]
+texture = ExtResource("3_star")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
+shape = SubResource("CircleShape_Goal")
+
+[connection signal="body_entered" from="Goal" to="Goal" method="_on_body_entered"]
+
+; Player
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(100, 324)
