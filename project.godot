@@ -11,23 +11,18 @@ config_version=5
 [application]
 
 config/name="Circle Racer"
-config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
-
-[application]
-
 run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1152
-window/size/viewport_height=648
 window/stretch/mode="canvas_items"
 
 [dotnet]
 
 project/assembly_name="Circle Racer"
 
-[rendering]
+[autoload]
 
-renderer/rendering_method="forward_plus"
+GameConfig="*res://scripts/GameConfig.gd"

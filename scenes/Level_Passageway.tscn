@@ -15,6 +15,9 @@ size = Vector2(60, 60)
 [sub_resource type="CircleShape2D" id="CircleShape_Goal"]
 radius = 30.0
 
+[sub_resource type="RectangleShape2D" id="RectShape_WallVertical"]
+size = Vector2(20, 648)
+
 [node name="Level_Passageway" type="Node2D"]
 
 ; Top Wall
@@ -30,6 +33,20 @@ position = Vector2(576, 638)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom"]
 shape = SubResource("RectShape_Wall")
+
+; Left Wall
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(-10, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectShape_WallVertical")
+
+; Right Wall
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1162, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectShape_WallVertical")
 
 ; Obstacle 1 (Square)
 [node name="ObstacleSquare" type="StaticBody2D" parent="."]
